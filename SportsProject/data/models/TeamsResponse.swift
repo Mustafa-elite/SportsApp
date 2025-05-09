@@ -9,11 +9,11 @@ import Foundation
 // MARK: - TeamResponse
 struct TeamResponse: Codable {
     let success: Int
-    let result: [TeamResult]
+    let result: [TeamDTO]
 }
 
 // MARK: - TeamResult
-struct TeamResult: Codable {
+struct TeamDTO: Codable {
     let teamKey: Int
     let teamName: String
     let teamLogo: String
@@ -31,7 +31,7 @@ struct TeamResult: Codable {
 // MARK: - Coach
 struct Coach: Codable {
     let coachName: String
-    let coachCountry, coachAge: JSONNull?
+    let coachCountry, coachAge: String?
 
     enum CodingKeys: String, CodingKey {
         case coachName = "coach_name"
@@ -45,7 +45,7 @@ struct Player: Codable {
     let playerKey: Int
     let playerImage: String?
     let playerName, playerNumber: String
-    let playerCountry: JSONNull?
+    let playerCountry: String?
     let playerType: PlayerType
     let playerAge, playerMatchPlayed, playerGoals, playerYellowCards: String
     let playerRedCards: String
@@ -114,27 +114,4 @@ enum PlayerType: String, Codable {
     case forwards = "Forwards"
     case goalkeepers = "Goalkeepers"
     case midfielders = "Midfielders"
-}
-
-// MARK: - JSONNull Helper
-class JSONNull: Codable, Hashable {
-    static func == (lhs: JSONNull, rhs: JSONNull) -> Bool { true }
-    func hash(into hasher: inout Hasher) { hasher.combine(0) }
-
-    init() {}
-
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if !container.decodeNil() {
-            throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(
-                codingPath: decoder.codingPath,
-                debugDescription: "Expected null value"
-            ))
-        }
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encodeNil()
-    }
 }

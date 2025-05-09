@@ -10,11 +10,11 @@ import Foundation
 // MARK: - LeagueResponse
 struct LeagueResponse: Codable {
     let success: Int
-    let result: [LeagueResult]
+    let result: [LeagueDTO]
 }
 
 // MARK: - LeagueResult
-struct LeagueResult: Codable {
+struct LeagueDTO: Codable {
     let leagueKey: Int
     let leagueName: String
     let countryKey: Int
