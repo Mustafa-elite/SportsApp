@@ -1,0 +1,73 @@
+# Xcode generated files
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# Build products
+Build/
+Products/
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+Cartfile.resolved
+
+# Swift Package Manager
+.build/
+
+# Documentation generated files
+docs/
+
+# Various temporary files and logs
+*.log
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.ptimestampv3
+*.xccheckout
+*.xcscmblueprint
+*.xcscheme # Consider keeping this if you share specific build schemes
+*.ipa
+*.pkg
+*.dSYM # Debug Symbols - often uploaded separately for crash reporting
+
+# User-specific files (often contain personal settings)
+project.xcworkspace/xcuserdata/
+*.perspectivev3
+*.pbxuser
+!*.xcscheme # Explicitly keep shared schemes if needed
+
+# OS-specific files
+.DS_Store
+._*
+
+# Crash reports
+*.crash
+*.ips
+
+# Distribution archives
+*.zip
+*.tar.gz
+
+# Certificates and provisioning profiles - be cautious about committing these
+# **It's generally recommended NOT to commit these for security reasons.**
+# *.cer
+# *.mobileprovision
+
+# Fastlane files - depending on your setup
+fastlane/report.xml
+fastlane/metadata/
+fastlane/test_output/
+
+# SwiftLint cache - if you use SwiftLint
+.swiftlint.cache
+
+# XcodeGhost files - if you encountered this issue in the past
+_CodeSignature/
+
+# Other potential temporary files
+*.swp
+*.tmp
