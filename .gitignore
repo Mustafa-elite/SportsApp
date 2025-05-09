@@ -71,3 +71,7 @@ _CodeSignature/
 # Other potential temporary files
 *.swp
 *.tmp
+
+
+# secrets
+SportsProject/Secrets.xcconfig
