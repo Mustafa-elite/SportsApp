@@ -64,6 +64,22 @@ class ViewController: UIViewController {
             reachability?.stopNotifier()
         }
 
+    @IBAction func testButton(_ sender: Any) {
 
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let vc = storyboard.instantiateViewController(withIdentifier: "league_details_screen") as? LeagueDetailsViewController else {
+                return
+            }
+
+        let repos: Repository = RepositoryImpl(remote: RemoteDataSourceImpl())
+        let selectedSport: Sports = .FOOTBALL
+            let leagueId: Int = 177
+
+        let presenter = LeagueDetailsPresenterImpl(view: vc, repo: repos, sport: selectedSport, leagueId: leagueId)
+            vc.presenter = presenter
+
+            navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
