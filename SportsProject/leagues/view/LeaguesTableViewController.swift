@@ -1,19 +1,19 @@
-//
-//  LeaguesTableViewController.swift
-//  SportsProject
-//
-//  Created by Macos on 11/05/2025.
-//
-
 import UIKit
+import Kingfisher
 
 class LeaguesTableViewController: UITableViewController {
     
-    var selectedSport: String!
+    var selectedSport: Sports!
+    var presenter: LeaguesPresetner!
+    var leagues: [LeagueView]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("selected sport = \(self.selectedSport)")
+        print("selected sport = \(self.selectedSport.rawValue)")
+        self.leagues = []
+        self.presenter = LeaguesPresetner(view: self, repo: RepositoryImpl(remoteDataSource: RemoteDataSourceImpl()))
+        
+        self.presenter.loadLeaguesBySport(sport: self.selectedSport)
         
     }
 
@@ -21,23 +21,31 @@ class LeaguesTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.leagues.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "league_cell_id", for: indexPath) as! LeagueTableViewCell
+        let currentLeague = self.leagues[indexPath.row]
+        
+        
         // Configure the cell...
-
+        cell.lbLeagueName.text = currentLeague.name
+        cell.ivLeague.kf.setImage(with: URL(string: currentLeague.logoUrl))
+        
         return cell
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -84,4 +92,19 @@ class LeaguesTableViewController: UITableViewController {
     }
     */
 
+}
+
+
+extension LeaguesTableViewController : LeaguesView {
+    func setLeagues(leagues: [LeagueView]) {
+        self.leagues = leagues
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func setError(errorMsg: String) {
+        print("ERROR: \(errorMsg)")
+    }
+    
 }
