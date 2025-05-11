@@ -35,7 +35,7 @@ class SportsChooserCollectionViewController: UICollectionViewController {
             let dest = segue.destination as! LeaguesTableViewController
             let index = self.collectionView.indexPathsForSelectedItems?.first ?? IndexPath(row: 0, section: 0)
             let option = self.options[index.row]
-            dest.selectedSport = option.value
+            dest.selectedSport = Sports(rawValue: option.value)
             
         }
         
