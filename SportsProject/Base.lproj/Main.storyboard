@@ -177,13 +177,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="qS2-wW-3kE">
-                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="league_cell_id" rowHeight="120" id="qS2-wW-3kE" customClass="LeagueTableViewCell" customModule="SportsProject" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="393" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qS2-wW-3kE" id="S0R-zY-VDf">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="football" translatesAutoresizingMaskIntoConstraints="NO" id="7Zv-yW-cyg">
+                                            <rect key="frame" x="16" y="16" width="118" height="88"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lsdkjflsdjflsdjfldskfjlsdkjflsdkjfldskfjlsdfjdslfjsdlfjsdlfjdlskfjlksdjf" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YoQ-oQ-omJ">
+                                            <rect key="frame" x="150" y="16" width="207" height="88"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="YoQ-oQ-omJ" firstAttribute="leading" secondItem="7Zv-yW-cyg" secondAttribute="trailing" constant="16" id="N4e-hL-kY5"/>
+                                        <constraint firstItem="YoQ-oQ-omJ" firstAttribute="bottom" secondItem="7Zv-yW-cyg" secondAttribute="bottom" id="OAS-MQ-SjA"/>
+                                        <constraint firstAttribute="bottom" secondItem="7Zv-yW-cyg" secondAttribute="bottom" constant="16" id="OaE-9g-vdn"/>
+                                        <constraint firstItem="7Zv-yW-cyg" firstAttribute="leading" secondItem="S0R-zY-VDf" secondAttribute="leading" constant="16" id="aHz-7E-qmQ"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="YoQ-oQ-omJ" secondAttribute="trailing" constant="16" id="cWv-Zt-jLw"/>
+                                        <constraint firstItem="YoQ-oQ-omJ" firstAttribute="top" secondItem="7Zv-yW-cyg" secondAttribute="top" id="dQl-Nf-S6a"/>
+                                        <constraint firstItem="7Zv-yW-cyg" firstAttribute="top" secondItem="S0R-zY-VDf" secondAttribute="top" constant="16" id="nut-Fk-s20"/>
+                                        <constraint firstItem="7Zv-yW-cyg" firstAttribute="width" secondItem="S0R-zY-VDf" secondAttribute="width" multiplier="0.3" id="was-7A-Ye3"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="ivLeague" destination="7Zv-yW-cyg" id="uAj-Er-QWQ"/>
+                                    <outlet property="lbLeagueName" destination="YoQ-oQ-omJ" id="kw2-0e-unc"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -195,7 +220,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JIC-AF-eJV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2658" y="-296"/>
+            <point key="canvasLocation" x="2657.2519083969464" y="-296.47887323943661"/>
         </scene>
         <!--Collection View Controller-->
         <scene sceneID="seR-Q7-baB">
