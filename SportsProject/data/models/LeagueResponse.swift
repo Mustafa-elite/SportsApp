@@ -19,7 +19,7 @@ struct LeagueDTO: Codable {
     let leagueName: String
     let countryKey: Int
     let countryName: String
-    let leagueLogo, countryLogo: String
+    let leagueLogo, countryLogo: String?
 
     enum CodingKeys: String, CodingKey {
         case leagueKey = "league_key"
