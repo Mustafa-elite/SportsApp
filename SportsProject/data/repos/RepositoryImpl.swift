@@ -1,10 +1,13 @@
 import Foundation
 
 class RepositoryImpl: Repository {
-    
+
     private var remoteDataSource: RemoteDataSource!
-    init(remoteDataSource: RemoteDataSource!) {
+    private var localDataSource: LocalDataSource!
+    
+    init(remoteDataSource: RemoteDataSource!, localDataSource: LocalDataSource!) {
         self.remoteDataSource = remoteDataSource
+        self.localDataSource = localDataSource
     }
     
     func getLeaguesBySport(sport: Sports, onSuccess: @escaping ([LeagueDTO]) -> Void, onFailure: @escaping (String) -> Void) {
@@ -26,6 +29,22 @@ class RepositoryImpl: Repository {
         
         
     }
+    
+    
+    
+    func getFavoriteLeagues() -> [LeagueEntity] {
+        return localDataSource.getAllLeagues()
+    }
+    
+    func addLeagueToFavorite(league: LeagueView) {
+        localDataSource.insertLeague(league: league)
+    }
+    
+    func deleteLeaugeFromFavorite(league: LeagueView) {
+        localDataSource.deleteLeauge(league: league)
+    }
+    
+    
     
     
 }
