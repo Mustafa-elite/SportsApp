@@ -6,12 +6,13 @@ class LeaguesTableViewController: UITableViewController {
     var selectedSport: Sports!
     var presenter: LeaguesPresetner!
     var leagues: [LeagueView]!
+    let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
 
     override func viewDidLoad() {
         super.viewDidLoad()
         print("selected sport = \(self.selectedSport.rawValue)")
         self.leagues = []
-        self.presenter = LeaguesPresetner(view: self, repo: RepositoryImpl(remoteDataSource: RemoteDataSourceImpl()))
+        self.presenter = LeaguesPresetner(view: self, repo: RepositoryImpl(remoteDataSource: RemoteDataSourceImpl(), localDataSource: LocalDataSourceImpl.shared))
         
         self.presenter.loadLeaguesBySport(sport: self.selectedSport)
         
@@ -57,6 +58,12 @@ class LeaguesTableViewController: UITableViewController {
         return 120
     }
     
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedItem = self.leagues[indexPath.row]
+        print("\(selectedItem)")
+        presenter.addToFavorite(league: selectedItem)
+    }
 
     /*
     // MARK: - Navigation
