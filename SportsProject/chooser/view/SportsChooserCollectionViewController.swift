@@ -1,10 +1,3 @@
-//
-//  SportsChooserCollectionViewController.swift
-//  SportsProject
-//
-//  Created by Macos on 11/05/2025.
-//
-
 import UIKit
 
 private let reuseIdentifier = "chooser_option_cell"
