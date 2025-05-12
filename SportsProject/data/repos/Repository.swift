@@ -32,8 +32,8 @@ protocol Repository {
     )
     
     // local data source related functions
-//    func getFavoriteLeagues() -> [LeagueEntity]
-//    func addLeagueToFavorite(league: LeagueEntity)
-//    func deleteLeaugeFromFavorite(league: LeagueEntity)
+    func getFavoriteLeagues() -> [LeagueEntity]
+    func addLeagueToFavorite(league: LeagueView)
+    func deleteLeaugeFromFavorite(league: LeagueView)
     
 }

@@ -1,47 +1,52 @@
 import UIKit
-import Kingfisher
 
-class LeaguesTableViewController: UITableViewController {
-    
-    var selectedSport: Sports!
-    var presenter: LeaguesPresetner!
+class FavoriteTableViewController: UITableViewController {
+
+    var presenter: FavoritePresenter!
     var leagues: [LeagueView]!
     let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("selected sport = \(self.selectedSport.rawValue)")
         self.leagues = []
-        self.presenter = LeaguesPresetner(view: self, repo: RepositoryImpl(remoteDataSource: RemoteDataSourceImpl(), localDataSource: LocalDataSourceImpl.shared))
-        
-        self.presenter.loadLeaguesBySport(sport: self.selectedSport)
-        
+        self.presenter = FavoritePresenter(repo: RepositoryImpl(remoteDataSource: RemoteDataSourceImpl(), localDataSource: LocalDataSourceImpl.shared), view: self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.presenter.loadFavoriteLeagues()
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int { return 1 }
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return self.leagues.count }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.leagues.count
+    }
 
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "league_cell_id", for: indexPath) as! LeagueTableViewCell
-        let currentLeague = self.leagues[indexPath.row]
         
+        let currentLeague = self.leagues[indexPath.row]
+
         // Configure the cell...
         cell.lbLeagueName.text = currentLeague.name
         if currentLeague.logoUrl == "NONE" {
-            switch selectedSport {
-            case .FOOTBALL :
+            switch currentLeague.sportId {
+            case Sports.FOOTBALL.rawValue :
                 cell.ivLeague.image = UIImage(named: "football")
-            case .some(.BASKETBALL):
+            case Sports.BASKETBALL.rawValue:
                 cell.ivLeague.image = UIImage(named: "basketball")
-            case .some(.TENNIS):
+            case Sports.TENNIS.rawValue:
                 cell.ivLeague.image = UIImage(named: "tennis")
-            case .some(.CRICKET):
+            case Sports.CRICKET.rawValue:
                 cell.ivLeague.image = UIImage(named: "cricket")
-            case .none:
+            case "NONE":
+                cell.ivLeague.image = UIImage(named: "broken")
+            default:
                 cell.ivLeague.image = UIImage(named: "broken")
             }
         } else {
@@ -54,15 +59,22 @@ class LeaguesTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+
+
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            let selectedItem = self.leagues[indexPath.row]
+            presenter.deleteLeague(league: selectedItem)
+            self.leagues.remove(at: indexPath.row)
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedItem = self.leagues[indexPath.row]
-        print("\(selectedItem)")
-        presenter.addToFavorite(league: selectedItem)
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
     }
 
     /*
@@ -77,8 +89,7 @@ class LeaguesTableViewController: UITableViewController {
 
 }
 
-
-extension LeaguesTableViewController : LeaguesView {
+extension FavoriteTableViewController: LeaguesView {
     func setLeagues(leagues: [LeagueView]) {
         self.leagues = leagues
         DispatchQueue.main.async {
@@ -87,7 +98,8 @@ extension LeaguesTableViewController : LeaguesView {
     }
     
     func setError(errorMsg: String) {
-        print("ERROR: \(errorMsg)")
+        print("error: \(errorMsg)")
     }
+    
     
 }
