@@ -15,17 +15,6 @@ class UpcomingEventsCollectionViewCell: UICollectionViewCell {
        self.events = events
        collectionView.reloadData()
    }
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        collectionView.delegate = self
-//        collectionView.dataSource = self
-//
-//        collectionView.register(UINib(nibName: "UpcomingEventCell", bundle: nil), forCellWithReuseIdentifier: "UpcomingEventCell")
-//        
-//        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-//            layout.scrollDirection = .horizontal
-//        }
-//    }
     override func layoutSubviews() {
         super.layoutSubviews()
 
@@ -54,8 +43,11 @@ extension UpcomingEventsCollectionViewCell: UICollectionViewDataSource, UICollec
         cell.configure(with: events[indexPath.item])
         return cell
     }
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 200, height: 100)
+        let height = collectionView.bounds.height * 0.9
+        let width = collectionView.bounds.width * 0.9
+
+        return CGSize(width: width, height: height)
     }
+
 }

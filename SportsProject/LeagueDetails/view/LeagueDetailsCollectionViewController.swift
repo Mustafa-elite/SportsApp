@@ -88,8 +88,21 @@ extension LeagueDetailsViewController: UICollectionViewDataSource, UICollectionV
             fatalError("Unexpected section")
         }
     }
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 150)
+        let width = collectionView.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+
+        switch indexPath.section {
+        case 0:
+            return CGSize(width: width, height: screenHeight * 0.20)
+        case 1:
+            return CGSize(width: width, height: screenHeight * 0.40)
+        case 2:
+            return CGSize(width: width, height: screenHeight * 0.30)
+        default:
+            return CGSize(width: width, height: screenHeight * 0.10)
+        }
     }
+
+
 }

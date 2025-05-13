@@ -7,60 +7,56 @@ import Foundation
 
 // MARK: - LeagueEventsResponse
 struct LeagueEventsResponse: Codable {
-    let success: String
+    let success: Int
     let result: [EventDTO]
 }
 
 // MARK: - Result
 struct EventDTO: Codable {
-    let eventKey: Int
-    let eventDate, eventTime, eventHomeTeam: String
-    let homeTeamKey: Int
-    let eventAwayTeam: String
-    let awayTeamKey: Int
-    let eventHalftimeResult, eventFinalResult, eventFtResult, eventPenaltyResult: String
-    let eventStatus, countryName, leagueName: String
-    let leagueKey: Int
-    let leagueRound, leagueSeason, eventLive, eventStadium: String
-    let eventReferee: String
-    let homeTeamLogo, awayTeamLogo: String
-    let eventCountryKey: Int
-    let leagueLogo: String
-    let countryLogo: String?
-    let eventHomeFormation, eventAwayFormation: String
-    let fkStageKey, stageName, leagueGroup: String?
+    let eventKey: Int?
+    let eventDate: String?
+    let eventDateStart: String?
+    let eventDateStop: String?
+    let eventTime: String?
+    let eventFirstPlayer: String?
+    let firstPlayerKey: Int?
+    let eventSecondPlayer: String?
+    let secondPlayerKey: Int?
+    let eventFirstPlayerLogo: String?
+    let eventSecondPlayerLogo: String?
+    
+    let eventHomeTeam: String?
+    let homeTeamKey: Int?
+    let eventAwayTeam: String?
+    let awayTeamKey: Int?
+    let homeTeamLogo: String?
+    let awayTeamLogo: String?
 
+    let eventFinalResult: String?
+    let eventStatus: String?
+    
+    // Coding keys
     enum CodingKeys: String, CodingKey {
         case eventKey = "event_key"
         case eventDate = "event_date"
+        case eventDateStart = "event_date_start"
+        case eventDateStop = "event_date_stop"
         case eventTime = "event_time"
+        case eventFirstPlayer = "event_first_player"
+        case firstPlayerKey = "first_player_key"
+        case eventSecondPlayer = "event_second_player"
+        case secondPlayerKey = "second_player_key"
+        case eventFirstPlayerLogo = "event_first_player_logo"
+        case eventSecondPlayerLogo = "event_second_player_logo"
+        
+   
         case eventHomeTeam = "event_home_team"
         case homeTeamKey = "home_team_key"
         case eventAwayTeam = "event_away_team"
         case awayTeamKey = "away_team_key"
-        case eventHalftimeResult = "event_halftime_result"
-        case eventFinalResult = "event_final_result"
-        case eventFtResult = "event_ft_result"
-        case eventPenaltyResult = "event_penalty_result"
-        case eventStatus = "event_status"
-        case countryName = "country_name"
-        case leagueName = "league_name"
-        case leagueKey = "league_key"
-        case leagueRound = "league_round"
-        case leagueSeason = "league_season"
-        case eventLive = "event_live"
-        case eventStadium = "event_stadium"
-        case eventReferee = "event_referee"
         case homeTeamLogo = "home_team_logo"
         case awayTeamLogo = "away_team_logo"
-        case eventCountryKey = "event_country_key"
-        case leagueLogo = "league_logo"
-        case countryLogo = "country_logo"
-        case eventHomeFormation = "event_home_formation"
-        case eventAwayFormation = "event_away_formation"
-        case fkStageKey = "fk_stage_key"
-        case stageName = "stage_name"
-        case leagueGroup = "league_group"
+        case eventFinalResult = "event_final_result"
+        case eventStatus = "event_status"
     }
 }
-

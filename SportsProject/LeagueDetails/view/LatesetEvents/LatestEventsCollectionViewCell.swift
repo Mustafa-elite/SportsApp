@@ -43,9 +43,12 @@ extension LatestEventsCollectionViewCell: UICollectionViewDataSource, UICollecti
         return cell
 
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 100)
+        let height = collectionView.bounds.height * 0.45
+        let width = collectionView.bounds.width
+
+        return CGSize(width: width, height: height)
     }
 }
 
