@@ -71,7 +71,7 @@ class ViewController: UIViewController {
                 return
             }
 
-        let repos: Repository = RepositoryImpl(remote: RemoteDataSourceImpl())
+        let repos: Repository = RepositoryImpl(remoteDataSource: RemoteDataSourceImpl(), localDataSource: LocalDataSourceImpl.shared)
         let selectedSport: Sports = .FOOTBALL
             let leagueId: Int = 177
 
