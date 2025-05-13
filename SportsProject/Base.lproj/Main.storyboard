@@ -75,19 +75,46 @@
         <!--Favorite Leagues-->
         <scene sceneID="Sue-6z-KK0">
             <objects>
-                <tableViewController storyboardIdentifier="favorite_screen" id="rXi-Jy-quU" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="favorite_screen" id="rXi-Jy-quU" customClass="FavoriteTableViewController" customModule="SportsProject" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="VZm-zR-hdZ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="QKI-KY-f5y">
-                                <rect key="frame" x="0.0" y="50" width="393" height="47.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="league_cell_id" rowHeight="120" id="Zc3-xY-4sM" customClass="LeagueTableViewCell" customModule="SportsProject" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="393" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QKI-KY-f5y" id="Rqq-ba-59u">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="47.666667938232422"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zc3-xY-4sM" id="OtH-rz-LPs">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="football" translatesAutoresizingMaskIntoConstraints="NO" id="PCb-q5-nkQ">
+                                            <rect key="frame" x="16" y="10" width="110" height="110"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="110" id="PtV-fX-PiF"/>
+                                                <constraint firstAttribute="width" constant="110" id="rHE-3a-9C7"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lsdkjflsdjflsdjfldskfjlsdkjflsdkjfldskfjlsdfjdslfjsdlfjsdlfjdlskfjlksdjf" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0lY-2x-JLr">
+                                            <rect key="frame" x="142" y="10" width="251" height="110"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="0lY-2x-JLr" firstAttribute="bottom" secondItem="PCb-q5-nkQ" secondAttribute="bottom" id="81Q-Cq-O8L"/>
+                                        <constraint firstItem="0lY-2x-JLr" firstAttribute="top" secondItem="PCb-q5-nkQ" secondAttribute="top" id="DWP-BR-wTT"/>
+                                        <constraint firstItem="0lY-2x-JLr" firstAttribute="leading" secondItem="PCb-q5-nkQ" secondAttribute="trailing" constant="16" id="nvy-Y5-g8j"/>
+                                        <constraint firstItem="PCb-q5-nkQ" firstAttribute="top" secondItem="OtH-rz-LPs" secondAttribute="top" constant="10" id="v0n-bq-YPl"/>
+                                        <constraint firstItem="PCb-q5-nkQ" firstAttribute="leading" secondItem="OtH-rz-LPs" secondAttribute="leading" constant="16" id="vSF-Hw-0zn"/>
+                                        <constraint firstAttribute="trailing" secondItem="0lY-2x-JLr" secondAttribute="trailing" id="wHp-fR-k5k"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="ivLeague" destination="PCb-q5-nkQ" id="6zl-hI-KNa"/>
+                                    <outlet property="lbLeagueName" destination="0lY-2x-JLr" id="rjX-eh-7zh"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -100,7 +127,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bgu-Nn-DpS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1778" y="449"/>
+            <point key="canvasLocation" x="1777.8625954198474" y="448.59154929577466"/>
         </scene>
         <!--Home-->
         <scene sceneID="NCg-oS-JP0">
@@ -119,28 +146,54 @@
             </objects>
             <point key="canvasLocation" x="711" y="-294"/>
         </scene>
-        <!--Leagues-->
+        <!--Chooser-->
         <scene sceneID="Zcu-jr-NQB">
             <objects>
-                <collectionViewController storyboardIdentifier="chooser_screen" id="uD0-3w-zQO" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="chooser_screen" title="Chooser" id="uD0-3w-zQO" customClass="SportsChooserCollectionViewController" customModule="SportsProject" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="tgV-1B-D1n">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mJ5-Os-Wld">
-                            <size key="itemSize" width="128" height="128"/>
+                            <size key="itemSize" width="251" height="320"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="EV8-x0-EW3">
-                                <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="chooser_option_cell" id="EV8-x0-EW3" customClass="ChooserOptionCollectionViewCell" customModule="SportsProject" customModuleProvider="target">
+                                <rect key="frame" x="71" y="0.0" width="251" height="320"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="1pQ-cd-FNU">
-                                    <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="251" height="320"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="football" translatesAutoresizingMaskIntoConstraints="NO" id="n1g-7x-X3l">
+                                            <rect key="frame" x="0.0" y="0.0" width="251" height="224"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Football" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPu-iT-VOf">
+                                            <rect key="frame" x="0.0" y="240" width="251" height="29"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="HPu-iT-VOf" firstAttribute="trailing" secondItem="n1g-7x-X3l" secondAttribute="trailing" id="J4M-i2-sbq"/>
+                                        <constraint firstItem="HPu-iT-VOf" firstAttribute="leading" secondItem="n1g-7x-X3l" secondAttribute="leading" id="K69-nk-U16"/>
+                                        <constraint firstItem="n1g-7x-X3l" firstAttribute="leading" secondItem="1pQ-cd-FNU" secondAttribute="leading" id="Lve-Pb-XWq"/>
+                                        <constraint firstAttribute="trailing" secondItem="n1g-7x-X3l" secondAttribute="trailing" id="RxS-d7-di8"/>
+                                        <constraint firstItem="n1g-7x-X3l" firstAttribute="top" secondItem="1pQ-cd-FNU" secondAttribute="top" id="cf4-hP-7LJ"/>
+                                        <constraint firstItem="HPu-iT-VOf" firstAttribute="top" secondItem="n1g-7x-X3l" secondAttribute="bottom" constant="16" id="kTI-CU-68U"/>
+                                        <constraint firstItem="n1g-7x-X3l" firstAttribute="height" secondItem="1pQ-cd-FNU" secondAttribute="height" multiplier="0.7" id="pU5-wT-ZjW"/>
+                                    </constraints>
                                 </collectionViewCellContentView>
+                                <size key="customSize" width="251" height="320"/>
+                                <connections>
+                                    <outlet property="ivOption" destination="n1g-7x-X3l" id="ntV-9V-plQ"/>
+                                    <outlet property="lbOption" destination="HPu-iT-VOf" id="wpc-Wv-aQF"/>
+                                    <segue destination="VQN-xe-ze8" kind="show" identifier="goToLeaguesScreen" id="Z75-CY-PEC"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -149,28 +202,55 @@
                         </connections>
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Item" id="r3F-5l-YRA"/>
-                    <navigationItem key="navigationItem" title="Leagues" id="fDk-OM-lD6"/>
+                    <navigationItem key="navigationItem" title="Sports Chooser" id="fDk-OM-lD6"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WKQ-4M-nZr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1753" y="-288"/>
+            <point key="canvasLocation" x="1751.9083969465648" y="-288.02816901408454"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Leagues-->
         <scene sceneID="rbK-u8-aD8">
             <objects>
-                <tableViewController storyboardIdentifier="leagues_screen" id="VQN-xe-ze8" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="leagues_screen" hidesBottomBarWhenPushed="YES" id="VQN-xe-ze8" customClass="LeaguesTableViewController" customModule="SportsProject" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="RK4-7v-nBJ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="qS2-wW-3kE">
-                                <rect key="frame" x="0.0" y="50" width="393" height="47.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="league_cell_id" rowHeight="120" id="qS2-wW-3kE" customClass="LeagueTableViewCell" customModule="SportsProject" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="393" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qS2-wW-3kE" id="S0R-zY-VDf">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="47.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="football" translatesAutoresizingMaskIntoConstraints="NO" id="7Zv-yW-cyg">
+                                            <rect key="frame" x="16" y="10" width="110" height="110"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="110" id="U7m-Eh-tB9"/>
+                                                <constraint firstAttribute="height" constant="110" id="lx8-YG-rip"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lsdkjflsdjflsdjfldskfjlsdkjflsdkjfldskfjlsdfjdslfjsdlfjsdlfjdlskfjlksdjf" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YoQ-oQ-omJ">
+                                            <rect key="frame" x="142" y="10" width="251" height="110"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="7Zv-yW-cyg" firstAttribute="leading" secondItem="S0R-zY-VDf" secondAttribute="leading" constant="16" id="2NY-fo-soI"/>
+                                        <constraint firstAttribute="trailing" secondItem="YoQ-oQ-omJ" secondAttribute="trailing" id="54b-MK-C7t"/>
+                                        <constraint firstItem="YoQ-oQ-omJ" firstAttribute="leading" secondItem="7Zv-yW-cyg" secondAttribute="trailing" constant="16" id="JhB-01-dHe"/>
+                                        <constraint firstItem="7Zv-yW-cyg" firstAttribute="top" secondItem="S0R-zY-VDf" secondAttribute="top" constant="10" id="kXK-t2-Ugy"/>
+                                        <constraint firstItem="YoQ-oQ-omJ" firstAttribute="top" secondItem="7Zv-yW-cyg" secondAttribute="top" id="pxe-xR-1qR"/>
+                                        <constraint firstItem="YoQ-oQ-omJ" firstAttribute="bottom" secondItem="7Zv-yW-cyg" secondAttribute="bottom" id="ucc-zp-mMd"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="ivLeague" destination="7Zv-yW-cyg" id="uAj-Er-QWQ"/>
+                                    <outlet property="lbLeagueName" destination="YoQ-oQ-omJ" id="kw2-0e-unc"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -178,11 +258,11 @@
                             <outlet property="delegate" destination="VQN-xe-ze8" id="mRB-wb-xgt"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="85T-ic-ZGI"/>
+                    <navigationItem key="navigationItem" title="Leagues" id="85T-ic-ZGI"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JIC-AF-eJV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2658" y="-296"/>
+            <point key="canvasLocation" x="2657.2519083969464" y="-296.47887323943661"/>
         </scene>
         <!--League Details View Controller-->
         <scene sceneID="seR-Q7-baB">
@@ -252,6 +332,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="football" width="212" height="148"/>
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="homekit" catalog="system" width="128" height="104"/>
         <systemColor name="systemBackgroundColor">
