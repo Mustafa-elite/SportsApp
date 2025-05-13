@@ -113,7 +113,7 @@ extension LeagueDetailsViewController: TeamsCollectionViewCellDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let teamDetailsVC = storyboard.instantiateViewController(withIdentifier: "team_details_screen") as? TeamDetailsViewController {
             print("team clicked")
-            let repos: Repository = RepositoryImpl(remote: RemoteDataSourceImpl())
+            let repos: Repository = RepositoryImpl(remoteDataSource: RemoteDataSourceImpl(),localDataSource: LocalDataSourceImpl.shared)
             let teamPresenter = TeamDetailsPresenterImpl(view: teamDetailsVC, repo: repos, sport: presenter.getSport(), teamId: team.teamKey, leagueId: presenter.getLeagueId())
             
             teamDetailsVC.presenter = teamPresenter
