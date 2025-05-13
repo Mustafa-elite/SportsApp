@@ -1,22 +1,37 @@
 import UIKit
 import Kingfisher
+import Reachability
 
 class LeaguesTableViewController: UITableViewController {
     
     var selectedSport: Sports!
     var presenter: LeaguesPresetner!
     var leagues: [LeagueView]!
-    let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    private let reachability = try! Reachability()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         print("selected sport = \(self.selectedSport.rawValue)")
         self.leagues = []
-        self.presenter = LeaguesPresetner(view: self, repo: RepositoryImpl(remoteDataSource: RemoteDataSourceImpl(), localDataSource: LocalDataSourceImpl.shared))
         
-        self.presenter.loadLeaguesBySport(sport: self.selectedSport)
-        
+        if reachability.connection == .unavailable {
+            self.showNoInternetAlert()
+        } else {
+            self.presenter = LeaguesPresetner(view: self, repo: RepositoryImpl(remoteDataSource: RemoteDataSourceImpl(), localDataSource: LocalDataSourceImpl.shared))
+            self.presenter.loadLeaguesBySport(sport: self.selectedSport)
+        }
     }
+
+    
+    func showNoInternetAlert() {
+            let alert = UIAlertController(title: "No Internet Connection", message: "Please check your internet connection and try again.", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        }
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        }
 
     // MARK: - Table view data source
 
