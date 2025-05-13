@@ -26,6 +26,7 @@ protocol RemoteDataSource {
     
     func getTeamById(
         sport: Sports,
+        leagueId:Int,
         teamId: Int,
         onSuccess: @escaping ([TeamDTO]) -> Void,
         onFailure: @escaping (String) -> Void

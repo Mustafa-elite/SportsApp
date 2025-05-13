@@ -25,7 +25,8 @@ protocol Repository {
     )
     
     func getTeamById(
-        sport: Sports,
+        sport: Sports ,
+        leagueId:Int,
         teamId: Int,
         onSuccess: @escaping ([TeamDTO]) -> Void,
         onFailure: @escaping (String) -> Void
