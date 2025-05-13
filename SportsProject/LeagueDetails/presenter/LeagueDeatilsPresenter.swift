@@ -8,5 +8,6 @@
 
 protocol LeagueDetailsPresenter {
     func viewDidLoad()
-
+    func getSport() -> Sports
+    func getLeagueId() -> Int
 }

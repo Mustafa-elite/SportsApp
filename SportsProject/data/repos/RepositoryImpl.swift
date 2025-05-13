@@ -22,9 +22,10 @@ class RepositoryImpl: Repository {
         remote.getTeamsByLeagueId(sport: sport, leagueId: leagueId, onSuccess: onSuccess, onFailure: onFailure)
     }
     
-    func getTeamById(sport: Sports, teamId: Int, onSuccess: @escaping ([TeamDTO]) -> Void, onFailure: @escaping (String) -> Void) {
+    func getTeamById(sport: Sports,leagueId:Int, teamId: Int, onSuccess: @escaping ([TeamDTO]) -> Void, onFailure: @escaping (String) -> Void) {
         
         
+        remote.getTeamById(sport: sport ,leagueId: leagueId, teamId: teamId, onSuccess: onSuccess, onFailure:onFailure)
     }
     
     

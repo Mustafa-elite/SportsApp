@@ -3,13 +3,7 @@ import Foundation
 import Alamofire
 
 class RemoteDataSourceImpl : RemoteDataSource {
-    func getLeaguesBySport(sport: Sports, onSuccess: @escaping ([LeagueDTO]) -> Void, onFailure: @escaping (String) -> Void) {
-        
-    }
-    
-    func getTeamById(sport: Sports, teamId: Int, onSuccess: @escaping ([TeamDTO]) -> Void, onFailure: @escaping (String) -> Void) {
-        
-    }
+   
     
     
     
@@ -65,32 +59,62 @@ class RemoteDataSourceImpl : RemoteDataSource {
            let fullURL = try? URLEncoding.default.encode(URLRequest(url: urlObject), with: parameters).url?.absoluteString {
             print(" Requesting: \(fullURL)")
         }
-//        AF.request(url, parameters: parameters).responseDecodable(of:
-//            TeamResponse.self) { response in
+        AF.request(url, parameters: parameters).responseDecodable(of:
+            TeamResponse.self) { response in
+            switch response.result {
+            case .success(let response):
+                onSuccess(response.result)
+            case .failure(let error):
+                
+                    print("failure in alamo")
+                onFailure(error.localizedDescription)
+            }
+        }
+//        AF.request(url, parameters: parameters).responseData { response in
 //            switch response.result {
-//            case .success(let response):
-//                onSuccess(response.result)
+//            case .success(let data):
+//                if let json = String(data: data, encoding: .utf8) {
+//                    print("Raw JSON: \(json)")
+//                }
+//                do {
+//                    let decoded = try JSONDecoder().decode(TeamResponse.self, from: data)
+//                    onSuccess(decoded.result)
+//                } catch {
+//                    print(" Decoding error: \(error)")
+//                    onFailure("Decoding failed")
+//                }
 //            case .failure(let error):
-//                
-//                    print("failure in alamo")
+//                print(" Network error: \(error)")
 //                onFailure(error.localizedDescription)
 //            }
 //        }
-        AF.request(url, parameters: parameters).responseData { response in
+    }
+    func getLeaguesBySport(sport: Sports, onSuccess: @escaping ([LeagueDTO]) -> Void, onFailure: @escaping (String) -> Void) {
+        
+    }
+    
+    func getTeamById(sport: Sports,leagueId:Int, teamId: Int, onSuccess: @escaping ([TeamDTO]) -> Void, onFailure: @escaping (String) -> Void) {
+        let url = "https://apiv2.allsportsapi.com/\(sport.rawValue)/"
+        let parameters: [String: Any] = [
+            "met": "Teams",
+            "leagueId": leagueId,
+            "teamId": teamId,
+            "APIkey": apiKey
+        ]
+        
+        
+        if let urlObject = URL(string: url),
+           let fullURL = try? URLEncoding.default.encode(URLRequest(url: urlObject), with: parameters).url?.absoluteString {
+            print(" Requesting: \(fullURL)")
+        }
+        AF.request(url, parameters: parameters).responseDecodable(of:
+            TeamResponse.self) { response in
             switch response.result {
-            case .success(let data):
-                if let json = String(data: data, encoding: .utf8) {
-                    print("Raw JSON: \(json)")
-                }
-                do {
-                    let decoded = try JSONDecoder().decode(TeamResponse.self, from: data)
-                    onSuccess(decoded.result)
-                } catch {
-                    print("❌ Decoding error: \(error)")
-                    onFailure("Decoding failed")
-                }
+            case .success(let response):
+                onSuccess(response.result)
             case .failure(let error):
-                print("❌ Network error: \(error)")
+                
+                    print("failure in alamo")
                 onFailure(error.localizedDescription)
             }
         }

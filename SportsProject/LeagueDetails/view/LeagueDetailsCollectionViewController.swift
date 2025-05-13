@@ -83,6 +83,8 @@ extension LeagueDetailsViewController: UICollectionViewDataSource, UICollectionV
         case 2:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamsCollectionViewCell", for: indexPath) as! TeamsCollectionViewCell
             cell.configure(with: teams)
+            cell.delegate = self
+
             return cell
         default:
             fatalError("Unexpected section")
@@ -106,3 +108,19 @@ extension LeagueDetailsViewController: UICollectionViewDataSource, UICollectionV
 
 
 }
+extension LeagueDetailsViewController: TeamsCollectionViewCellDelegate {
+    func didSelectTeam(_ team: TeamDTO) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let teamDetailsVC = storyboard.instantiateViewController(withIdentifier: "team_details_screen") as? TeamDetailsViewController {
+            print("team clicked")
+            let repos: Repository = RepositoryImpl(remote: RemoteDataSourceImpl())
+            let teamPresenter = TeamDetailsPresenterImpl(view: teamDetailsVC, repo: repos, sport: presenter.getSport(), teamId: team.teamKey, leagueId: presenter.getLeagueId())
+            
+            teamDetailsVC.presenter = teamPresenter
+            
+            navigationController?.pushViewController(teamDetailsVC, animated: true)
+        }
+    }
+}
+
+

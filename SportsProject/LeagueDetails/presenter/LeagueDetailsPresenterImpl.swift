@@ -52,6 +52,13 @@ class LeagueDetailsPresenterImpl: LeagueDetailsPresenter {
             print("Failed to fetch teams: \(error)")
         })
     }
+    func getSport() -> Sports {
+        return sport
+    }
+
+    func getLeagueId() -> Int {
+        return leagueId
+    }
 
 }
 

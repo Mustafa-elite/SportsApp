@@ -11,6 +11,8 @@ class TeamsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
     var teams: [TeamDTO] = []
+    weak var delegate: TeamsCollectionViewCellDelegate?
+
 
     func configure(with teams: [TeamDTO]) {
         self.teams = teams
@@ -46,5 +48,11 @@ extension TeamsCollectionViewCell: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 150, height: 150)
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedTeam = teams[indexPath.item]
+        print("team clicked but before delegate")
+        delegate?.didSelectTeam(selectedTeam)
+    }
+
 }
 
