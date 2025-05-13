@@ -23,11 +23,11 @@ class LeaguesPresetner {
         
     }
     
-    func addToFavorite(league: LeagueView) {
-        print("adding \(league.name) to favorite")
-        self.repo.addLeagueToFavorite(league: league)
-        print("added \(league.name)to favorite")
-    }
+//    func addToFavorite(league: LeagueView) {
+//        print("adding \(league.name) to favorite")
+//        self.repo.addLeagueToFavorite(league: league)
+//        print("added \(league.name)to favorite")
+//    }
     
     
     

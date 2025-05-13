@@ -77,19 +77,23 @@ class LeaguesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = self.leagues[indexPath.row]
         print("\(selectedItem)")
-        presenter.addToFavorite(league: selectedItem)
+//        presenter.addToFavorite(league: selectedItem)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "league_details_screen") as? LeagueDetailsViewController else {
+            return
+        }
+
+        let repos: Repository = RepositoryImpl(remoteDataSource: RemoteDataSourceImpl(), localDataSource: LocalDataSourceImpl.shared)
+        let selectedSport: Sports = self.selectedSport
+        let leagueId: Int = selectedItem.id
+
+        let presenter = LeagueDetailsPresenterImpl(view: vc, repo: repos, sport: selectedSport, leagueId: leagueId)
+            vc.presenter = presenter
+
+            navigationController?.pushViewController(vc, animated: true)
+
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 
