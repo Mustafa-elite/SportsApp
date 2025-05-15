@@ -41,7 +41,7 @@ class TeamDetailsViewController: UIViewController, TeamDetailsView {
 
     func displayTeamDetails(_ team: TeamDTO) {
         teamNameLabel.text = team.teamName
-        teamImageView.kf.setImage(with: URL(string: team.teamLogo), placeholder: UIImage(systemName: "photo"))
+        teamImageView.kf.setImage(with: URL(string: team.teamLogo ?? "NONE"), placeholder: UIImage(systemName: "photo"))
         coaches = team.coaches
         players = team.players
         tableView.reloadData()

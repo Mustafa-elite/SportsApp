@@ -16,7 +16,7 @@ struct TeamResponse: Codable {
 struct TeamDTO: Codable {
     let teamKey: Int
     let teamName: String
-    let teamLogo: String
+    let teamLogo: String?
     let players: [Player]
     let coaches: [Coach]
 

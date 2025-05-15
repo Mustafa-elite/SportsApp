@@ -77,7 +77,6 @@ class LeaguesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = self.leagues[indexPath.row]
         print("\(selectedItem)")
-//        presenter.addToFavorite(league: selectedItem)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "league_details_screen") as? LeagueDetailsViewController else {
@@ -85,12 +84,13 @@ class LeaguesTableViewController: UITableViewController {
         }
 
         let repos: Repository = RepositoryImpl(remoteDataSource: RemoteDataSourceImpl(), localDataSource: LocalDataSourceImpl.shared)
-        let selectedSport: Sports = self.selectedSport
-        let leagueId: Int = selectedItem.id
 
-        let presenter = LeagueDetailsPresenterImpl(view: vc, repo: repos, sport: selectedSport, leagueId: leagueId)
+
+        let presenter = LeagueDetailsPresenterImpl(view: vc, repo: repos, leagueView: selectedItem)
             vc.presenter = presenter
 
+        
+        
             navigationController?.pushViewController(vc, animated: true)
 
     }
