@@ -121,6 +121,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
 //                }
 //            })
     }
+    
     func getTeamById(sport: Sports,leagueId:Int, teamId: Int, onSuccess: @escaping ([TeamDTO]) -> Void, onFailure: @escaping (String) -> Void) {
         let url = "https://apiv2.allsportsapi.com/\(sport.rawValue)/"
         let parameters: [String: Any] = [
