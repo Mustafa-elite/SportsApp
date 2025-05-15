@@ -26,15 +26,15 @@ class LatestEventCell: UICollectionViewCell {
 
 
         if let homeLogo = event.homeTeamLogo, let homeLogoURL = URL(string: homeLogo) {
-            team1Image.kf.setImage(with: homeLogoURL, placeholder: UIImage(named: "event"))
+            team1Image.kf.setImage(with: homeLogoURL, placeholder: UIImage(named: "teamlogo"))
         } else {
-            team1Image.image = UIImage(named: "event")
+            team1Image.image = UIImage(named: "teamlogo")
         }
         
         if let awayLogo = event.awayTeamLogo, let awayLogoURL = URL(string: awayLogo) {
-            team2Image.kf.setImage(with: awayLogoURL, placeholder: UIImage(named: "event"))
+            team2Image.kf.setImage(with: awayLogoURL, placeholder: UIImage(named: "teamlogo"))
         } else {
-            team2Image.image = UIImage(named: "event")
+            team2Image.image = UIImage(named: "teamlogo")
         }
     }
 
