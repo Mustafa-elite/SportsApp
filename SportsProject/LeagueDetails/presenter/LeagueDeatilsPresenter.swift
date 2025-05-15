@@ -8,6 +8,6 @@
 
 protocol LeagueDetailsPresenter {
     func viewDidLoad()
-    func getSport() -> Sports
-    func getLeagueId() -> Int
+    func getLeagueView() -> LeagueView
+    func addToFavorite()
 }

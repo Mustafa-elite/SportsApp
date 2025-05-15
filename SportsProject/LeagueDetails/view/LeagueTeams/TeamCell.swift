@@ -17,7 +17,7 @@ class TeamCell: UICollectionViewCell {
     }
     func configure(withTeam:TeamDTO ){
         teamName.text = withTeam.teamName
-        if let logoURL = URL(string: withTeam.teamLogo) {
+        if let logoURL = URL(string: withTeam.teamLogo ?? "NONE") {
             teamImageView.kf.setImage(with: logoURL)
         }
     }

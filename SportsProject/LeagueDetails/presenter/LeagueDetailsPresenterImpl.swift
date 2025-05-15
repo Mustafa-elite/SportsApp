@@ -8,17 +8,19 @@
 import Foundation
 
 class LeagueDetailsPresenterImpl: LeagueDetailsPresenter {
+    
+    func addToFavorite() {
+        self.repo.addLeagueToFavorite(league: self.leagueView)
+    }
 
     weak var view: LeagueDetailsView?
     let repo: Repository
-    let sport: Sports
-    let leagueId: Int
+    let leagueView: LeagueView
 
-    init(view: LeagueDetailsView, repo: Repository, sport: Sports, leagueId: Int) {
+    init(view: LeagueDetailsView, repo: Repository, leagueView: LeagueView) {
         self.view = view
         self.repo = repo
-        self.sport = sport
-        self.leagueId = leagueId
+        self.leagueView = leagueView
     }
 
     func viewDidLoad() {
@@ -27,7 +29,8 @@ class LeagueDetailsPresenterImpl: LeagueDetailsPresenter {
 
         let fourteenDaysAgo = calendar.date(byAdding: .day, value: -14, to: now) ?? now
         
-        repo.getLeagueEvents(sport: sport, leagueId: leagueId, from: fourteenDaysAgo, to: now, onSuccess: { [weak self] events in
+        let selectedSport = Sports(rawValue: leagueView.sportId) ?? Sports.FOOTBALL
+        repo.getLeagueEvents(sport: selectedSport, leagueId: leagueView.id, from: fourteenDaysAgo, to: now, onSuccess: { [weak self] events in
             DispatchQueue.main.async {
                 self?.view?.displayLatestEvents(events)
             }
@@ -36,7 +39,7 @@ class LeagueDetailsPresenterImpl: LeagueDetailsPresenter {
         })
 
         let fourteenDaysLater = calendar.date(byAdding: .day, value: 14, to: now) ?? now
-        repo.getLeagueEvents(sport: sport, leagueId: leagueId, from: now, to: fourteenDaysLater, onSuccess: { [weak self] events in
+        repo.getLeagueEvents(sport: selectedSport, leagueId: leagueView.id, from: now, to: fourteenDaysLater, onSuccess: { [weak self] events in
             DispatchQueue.main.async {
                 self?.view?.displayUpcomingEvents(events)
             }
@@ -44,7 +47,7 @@ class LeagueDetailsPresenterImpl: LeagueDetailsPresenter {
             print("Failed to fetch upcoming events: \(error)")
         })
 
-        repo.getTeamsByLeagueId(sport: sport, leagueId: leagueId, onSuccess: { [weak self] teams in
+        repo.getTeamsByLeagueId(sport: selectedSport, leagueId: leagueView.id, onSuccess: { [weak self] teams in
             DispatchQueue.main.async {
                 self?.view?.displayTeams(teams)
             }
@@ -52,13 +55,9 @@ class LeagueDetailsPresenterImpl: LeagueDetailsPresenter {
             print("Failed to fetch teams: \(error)")
         })
     }
-    func getSport() -> Sports {
-        return sport
+    
+    func getLeagueView() -> LeagueView {
+        return self.leagueView
     }
-
-    func getLeagueId() -> Int {
-        return leagueId
-    }
-
 }
 
