@@ -28,8 +28,21 @@ class LeagueDetailsViewController: UIViewController {
         collectionView.register(UINib(nibName: "UpcomingEventsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "UpcomingEventsCollectionViewCell")
         collectionView.register(UINib(nibName: "LatestEventsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "LatestEventsCollectionViewCell")
         collectionView.register(UINib(nibName: "TeamsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TeamsCollectionViewCell")
+        
+        self.navigationItem.title = self.presenter.getLeagueView().name
+        
+        let addToFavoriteBtn = UIBarButtonItem(title: "Add To Favorite", style: .plain, target: self, action: #selector(addToFavorite))
+        self.navigationItem.rightBarButtonItem = addToFavoriteBtn
+        
+    }
+    
+    @objc func addToFavorite() {
+        presenter.addToFavorite()
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
 }
+
+
 
 extension LeagueDetailsViewController: LeagueDetailsView {
     func showLoading() {
@@ -114,7 +127,10 @@ extension LeagueDetailsViewController: TeamsCollectionViewCellDelegate {
         if let teamDetailsVC = storyboard.instantiateViewController(withIdentifier: "team_details_screen") as? TeamDetailsViewController {
             print("team clicked")
             let repos: Repository = RepositoryImpl(remoteDataSource: RemoteDataSourceImpl(),localDataSource: LocalDataSourceImpl.shared)
-            let teamPresenter = TeamDetailsPresenterImpl(view: teamDetailsVC, repo: repos, sport: presenter.getSport(), teamId: team.teamKey, leagueId: presenter.getLeagueId())
+            
+            let selectedSport = Sports(rawValue: presenter.getLeagueView().sportId) ?? .FOOTBALL
+            
+            let teamPresenter = TeamDetailsPresenterImpl(view: teamDetailsVC, repo: repos, sport: selectedSport, teamId: team.teamKey, leagueId: presenter.getLeagueView().id)
             
             teamDetailsVC.presenter = teamPresenter
             

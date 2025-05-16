@@ -41,7 +41,7 @@ class TeamDetailsViewController: UIViewController, TeamDetailsView {
 
     func displayTeamDetails(_ team: TeamDTO) {
         teamNameLabel.text = team.teamName
-        teamImageView.kf.setImage(with: URL(string: team.teamLogo), placeholder: UIImage(systemName: "photo"))
+        teamImageView.kf.setImage(with: URL(string: team.teamLogo ?? "NONE"), placeholder: UIImage(systemName: "photo"))
         coaches = team.coaches
         players = team.players
         tableView.reloadData()
@@ -69,10 +69,10 @@ extension TeamDetailsViewController: UITableViewDataSource, UITableViewDelegate 
 
         if indexPath.section == 0 {
             let coach = coaches[indexPath.row]
-            cell.configure(name: coach.coachName, imageUrl: nil) // If you have image add here
+            cell.configure(name: coach.coachName ?? "Not Available", imageUrl: nil)
         } else {
             let player = players[indexPath.row]
-            cell.configure(name: player.playerName, imageUrl: player.playerImage)
+            cell.configure(name: player.playerName ?? "Not available", imageUrl: player.playerImage)
         }
 
         return cell

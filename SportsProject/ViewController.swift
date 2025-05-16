@@ -75,8 +75,8 @@ class ViewController: UIViewController {
         let selectedSport: Sports = .FOOTBALL
             let leagueId: Int = 177
 
-        let presenter = LeagueDetailsPresenterImpl(view: vc, repo: repos, sport: selectedSport, leagueId: leagueId)
-            vc.presenter = presenter
+//        let presenter = LeagueDetailsPresenterImpl(view: vc, repo: repos, sport: selectedSport, leagueId: leagueId)
+//            vc.presenter = presenter
 
             navigationController?.pushViewController(vc, animated: true)
     }
