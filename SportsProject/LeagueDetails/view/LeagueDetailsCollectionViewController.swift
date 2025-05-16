@@ -38,6 +38,7 @@ class LeagueDetailsViewController: UIViewController {
     
     @objc func addToFavorite() {
         presenter.addToFavorite()
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
 }
 
