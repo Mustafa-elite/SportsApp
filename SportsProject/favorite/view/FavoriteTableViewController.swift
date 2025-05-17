@@ -1,10 +1,12 @@
 import UIKit
+import Reachability
 
 class FavoriteTableViewController: UITableViewController {
 
     var presenter: FavoritePresenter!
     var leagues: [LeagueView]!
     let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    private let reachability = try! Reachability()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,17 +87,40 @@ class FavoriteTableViewController: UITableViewController {
         return 120
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedItem = self.leagues[indexPath.row]
+        
+        if reachability.connection == .unavailable {
+            self.showNoInternetAlert()
+            self.tableView.deselectRow(at: indexPath, animated: true)
+        } else {
+            self.goToLeagueDetails(leagueView: selectedItem)
+        }
     }
-    */
-
+    
+    func showNoInternetAlert() {
+            let alert = UIAlertController(title: "No Internet Connection", message: "Please check your internet connection and try again.", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        }
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+    }
+    
+    func goToLeagueDetails(leagueView: LeagueView) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "league_details_screen") as? LeagueDetailsViewController else {
+            return
+        }
+        let repos: Repository = RepositoryImpl(remoteDataSource: RemoteDataSourceImpl(), localDataSource: LocalDataSourceImpl.shared)
+        let presenter = LeagueDetailsPresenterImpl(view: vc, repo: repos, leagueView: leagueView)
+            vc.presenter = presenter
+            navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
+
 
 extension FavoriteTableViewController: LeaguesView {
     func setLeagues(leagues: [LeagueView]) {
