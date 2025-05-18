@@ -28,7 +28,7 @@ class LeagueDetailsPresenterImpl: LeagueDetailsPresenter {
         let calendar = Calendar.current
 
         let fourteenDaysAgo = calendar.date(byAdding: .day, value: -14, to: now) ?? now
-        let oneDayAgo=calendar.date(byAdding: .hour,value: -8, to: now) ?? now
+        let oneDayAgo=calendar.date(byAdding: .hour,value: -24, to: now) ?? now
         let selectedSport = Sports(rawValue: leagueView.sportId) ?? Sports.FOOTBALL
         repo.getLeagueEvents(sport: selectedSport, leagueId: leagueView.id, from: fourteenDaysAgo, to: oneDayAgo, onSuccess: { [weak self] events in
             DispatchQueue.main.async {
