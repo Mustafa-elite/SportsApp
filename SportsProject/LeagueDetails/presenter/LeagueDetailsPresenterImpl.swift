@@ -28,9 +28,9 @@ class LeagueDetailsPresenterImpl: LeagueDetailsPresenter {
         let calendar = Calendar.current
 
         let fourteenDaysAgo = calendar.date(byAdding: .day, value: -14, to: now) ?? now
-        
+        let oneDayAgo=calendar.date(byAdding: .hour,value: -8, to: now) ?? now
         let selectedSport = Sports(rawValue: leagueView.sportId) ?? Sports.FOOTBALL
-        repo.getLeagueEvents(sport: selectedSport, leagueId: leagueView.id, from: fourteenDaysAgo, to: now, onSuccess: { [weak self] events in
+        repo.getLeagueEvents(sport: selectedSport, leagueId: leagueView.id, from: fourteenDaysAgo, to: oneDayAgo, onSuccess: { [weak self] events in
             DispatchQueue.main.async {
                 self?.view?.displayLatestEvents(events)
             }
@@ -39,7 +39,8 @@ class LeagueDetailsPresenterImpl: LeagueDetailsPresenter {
         })
 
         let fourteenDaysLater = calendar.date(byAdding: .day, value: 14, to: now) ?? now
-        repo.getLeagueEvents(sport: selectedSport, leagueId: leagueView.id, from: now, to: fourteenDaysLater, onSuccess: { [weak self] events in
+        let fiveHourslater=calendar.date(byAdding: .hour, value: 6,to: now) ?? now
+        repo.getLeagueEvents(sport: selectedSport, leagueId: leagueView.id, from: fiveHourslater, to: fourteenDaysLater, onSuccess: { [weak self] events in
             DispatchQueue.main.async {
                 self?.view?.displayUpcomingEvents(events)
             }
