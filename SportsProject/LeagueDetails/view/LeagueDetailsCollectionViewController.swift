@@ -5,21 +5,39 @@
 //  Created by JETS Mobile Lab on 11/05/2025.
 //
 import UIKit
+import Reachability
 class LeagueDetailsViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
 
     var presenter: LeagueDetailsPresenter!
-    
+    private let reachability = try! Reachability()
     var upcomingEvents: [EventDTO] = []
     var latestEvents: [EventDTO] = []
     var teams: [TeamDTO] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if reachability.connection == .unavailable {
+            self.showNoInternetAlert()
+        } else {
+            presenter.viewDidLoad()
+        }
+        
         setupCollectionView()
-        presenter.viewDidLoad()
     }
+
+    func showNoInternetAlert() {
+            let alert = UIAlertController(title: "No Internet Connection", message: "Please check your internet connection and try again.", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        }
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        }
+
 
     private func setupCollectionView() {
         collectionView.dataSource = self

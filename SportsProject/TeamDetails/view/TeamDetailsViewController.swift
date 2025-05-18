@@ -7,10 +7,12 @@
 
 import UIKit
 import Kingfisher
+import Reachability
 class TeamDetailsViewController: UIViewController, TeamDetailsView {
 
-    // MARK: - IBOutlets
+    private let reachability = try! Reachability()
 
+    
     @IBOutlet weak var teamImageView: UIImageView!
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -25,17 +27,31 @@ class TeamDetailsViewController: UIViewController, TeamDetailsView {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
 
-        // Register custom cell from XIB or storyboard
         let nib = UINib(nibName: "TeamMemberCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "TeamMemberCell")
-
-        presenter.viewDidLoad()
+        
+        if reachability.connection == .unavailable {
+            self.showNoInternetAlert()
+        } else {
+            
+            presenter.viewDidLoad()
+        }
     }
+
+    func showNoInternetAlert() {
+            let alert = UIAlertController(title: "No Internet Connection", message: "Please check your internet connection and try again.", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        }
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        }
 
     // MARK: - TeamDetailsView Protocol
 
