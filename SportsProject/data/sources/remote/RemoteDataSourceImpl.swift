@@ -19,13 +19,26 @@ class RemoteDataSourceImpl : RemoteDataSource {
         let toDate = dateFormatter.string(from: to)
         
         let url = "https://apiv2.allsportsapi.com/\(sport.rawValue)/"
-        let parameters: [String: Any] = [
-            "met": "Fixtures",
-            "leagueid": leagueId,
-            "from": fromDate,
-            "to": toDate,
-            "APIkey": apiKey
-        ]
+        var parameters: [String: Any]?
+        
+        if sport == .FOOTBALL {
+            parameters =  [
+                "met": "Fixtures",
+                "leagueId": leagueId,
+                "from": fromDate,
+                "to": toDate,
+                "APIkey": apiKey
+            ]
+        } else {
+            parameters =  [
+                "met": "Fixtures",
+                "leagueid": leagueId,
+                "from": fromDate,
+                "to": toDate,
+                "APIkey": apiKey
+            ]
+        }
+        
         if let urlObject = URL(string: url),
            let fullURL = try? URLEncoding.default.encode(URLRequest(url: urlObject), with: parameters).url?.absoluteString {
             print(" Requesting: \(fullURL)")
