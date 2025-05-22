@@ -28,7 +28,7 @@ final class RemoteDataSourceTestCase: XCTestCase {
         } onFailure: { error in
             
         }
-        wait(for: [exp], timeout: 10)
+        wait(for: [exp], timeout: 20)
     }
     
     func testGetTeamsByLeagueIdWhenPassedWrongLeagueIdCallsError() {
